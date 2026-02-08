@@ -30,7 +30,7 @@ function variable_step(x, y, iteration, learning_rate)
     return fixed_step(x, y, iteration, current_learning_rate)
 end
 
-function descend(x0, y0, recurrent_formula, stop_criterion; learning_rate=0.1, max_iterations=1_000, tolerance=1e-8)
+function descend(x0, y0, recurrent_formula, stop_criterion; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
     x, y = x0, y0
 
     for iteration in 1:max_iterations
@@ -47,37 +47,37 @@ function descend(x0, y0, recurrent_formula, stop_criterion; learning_rate=0.1, m
 end
 
 function main()
-    x_star, y_star, iterations = descend(5.0, -3.0, fixed_step, by_argument_change; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
+    x_star, y_star, iterations = descend(5.0, -3.0, fixed_step, by_argument_change)
     println("x* = ", x_star)
     println("y* = ", y_star)
     println("f(x*, y*) = ", f(x_star, y_star))
     println("iterations = ", iterations)
 
-    x_star, y_star, iterations = descend(5.0, -3.0, fixed_step, by_function_change; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
+    x_star, y_star, iterations = descend(5.0, -3.0, fixed_step, by_function_change)
     println("x* = ", x_star)
     println("y* = ", y_star)
     println("f(x*, y*) = ", f(x_star, y_star))
     println("iterations = ", iterations)
 
-    x_star, y_star, iterations = descend(5.0, -3.0, fixed_step, by_gradient_norm; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
+    x_star, y_star, iterations = descend(5.0, -3.0, fixed_step, by_gradient_norm)
     println("x* = ", x_star)
     println("y* = ", y_star)
     println("f(x*, y*) = ", f(x_star, y_star))
     println("iterations = ", iterations)
 
-    x_star, y_star, iterations = descend(5.0, -3.0, variable_step, by_argument_change; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
+    x_star, y_star, iterations = descend(5.0, -3.0, variable_step, by_argument_change)
     println("x* = ", x_star)
     println("y* = ", y_star)
     println("f(x*, y*) = ", f(x_star, y_star))
     println("iterations = ", iterations)
 
-    x_star, y_star, iterations = descend(5.0, -3.0, variable_step, by_function_change; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
+    x_star, y_star, iterations = descend(5.0, -3.0, variable_step, by_function_change)
     println("x* = ", x_star)
     println("y* = ", y_star)
     println("f(x*, y*) = ", f(x_star, y_star))
     println("iterations = ", iterations)
 
-    x_star, y_star, iterations = descend(5.0, -3.0, variable_step, by_gradient_norm; learning_rate=0.1, max_iterations=10_000, tolerance=1e-10)
+    x_star, y_star, iterations = descend(5.0, -3.0, variable_step, by_gradient_norm)
     println("x* = ", x_star)
     println("y* = ", y_star)
     println("f(x*, y*) = ", f(x_star, y_star))
