@@ -36,7 +36,34 @@ function solve_knapsack(items::Vector{Item}, capacity::Int)
 
     reverse!(selected_items)
 
-    return selected_items, dp[n + 1, capacity + 1]
+    return selected_items, dp[n + 1, capacity + 1], dp
+end
+
+function print_dp_table(items::Vector{Item}, capacity::Int, dp::Matrix{Int})
+    print("Предмет \\ Вес |")
+
+    for current_capacity in 0:capacity
+        print(lpad(current_capacity, 4))
+    end
+
+    println()
+    println("-" ^ (14 + 4 * (capacity + 1)))
+
+    print(lpad("0 предметов", 13), " |")
+    for current_capacity in 0:capacity
+        print(lpad(dp[1, current_capacity + 1], 4))
+    end
+    println()
+
+    for i in 1:length(items)
+        print(lpad(items[i].name, 13), " |")
+
+        for current_capacity in 0:capacity
+            print(lpad(dp[i + 1, current_capacity + 1], 4))
+        end
+
+        println()
+    end
 end
 
 function main()
@@ -48,8 +75,12 @@ function main()
     ]
     capacity = 8
 
-    selected_items, max_value = solve_knapsack(items, capacity)
+    selected_items, max_value, dp = solve_knapsack(items, capacity)
     total_weight = sum(item.weight for item in selected_items)
+
+    println("DP-таблица:")
+    print_dp_table(items, capacity, dp)
+    println()
 
     println("Вместимость рюкзака: ", capacity)
     println("Максимальная ценность: ", max_value)
